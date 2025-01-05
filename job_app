@@ -1,0 +1,252 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
+
+class job_app : AppCompatActivity() {
+
+    private lateinit var searchView: SearchView
+    private lateinit var user_name: String
+    private lateinit var user_email: String
+    private lateinit var fetchButton: Button
+
+
+    private val db = FirebaseFirestore.getInstance()
+
+    // Dynamic lists to hold fetched candidate names and emails
+    private val candidateNames = mutableListOf<String>()
+    private val candidatejobs = mutableListOf<String>()
+    private val candidateEmails = mutableListOf<String>()
+    private val candidateCompanys = mutableListOf<String>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_job_app)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        searchView = findViewById(R.id.search_ja)
+
+        fetchButton = findViewById(R.id.Fetch_button_data)
+
+
+        // Fetch candidate names and emails from Firestore
+        fetchCandidates()
+
+        fetchButton.setOnClickListener {
+            val query = searchView.query.toString()
+            if (query.isNotEmpty()) {
+                searchCandidates(query)
+            } else {
+                Toast.makeText(this, "Please enter a search query", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val acceptButton = findViewById<Button>(R.id.JAPtvu1)
+        acceptButton.setOnClickListener {
+            // Assuming the employer's email and job details are displayed in TextViews
+            val companyEmail = findViewById<TextView>(R.id.JAPetmrn_jb1_email).text.toString()
+            val jobTitle = findViewById<TextView>(R.id.JAPetmrn_jb1_name).text.toString()
+            val companyName = findViewById<TextView>(R.id.JAPetmrn_jb1_name).text.toString()
+
+            if (companyEmail.isNotEmpty()) {
+                sendEmail(
+                    companyEmail,
+                    "Acceptance of Job Offer for $jobTitle at $companyName",
+                    """
+                Dear $companyName Team,
+
+                I am writing to formally accept the job offer for the position of $jobTitle at your esteemed company. I am grateful for this opportunity and am excited to contribute to the team's success.
+
+                I would appreciate it if you could provide further details regarding my joining date, onboarding process, and any additional steps required from my end.
+
+                Once again, thank you for this opportunity. I look forward to being part of your organization.
+
+                Best regards,
+                $user_name
+                $user_email
+                [Your Contact Information]
+            """.trimIndent()
+                )
+            } else {
+                Toast.makeText(this, "Company email is missing!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        val backButton = findViewById<Button>(R.id.JAPbja8)
+        backButton.setOnClickListener {
+            finish() // Navigate back to the previous screen
+        }
+    }
+
+    private fun fetchCandidates() {
+        db.collection("candidates")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) { // Iterate through the documents in the collection
+                    for (num in 1..30) { // Iterate through the 1 to 30 fields for each document
+                        val nameField = "name$num"
+                        val emailField = "email$num"
+                        val jobField = "job$num"
+                        val companyField = "cmp$num"
+
+                        val name = document.getString(nameField)
+                        val job = document.getString(jobField)
+                        val company = document.getString(companyField)
+                        val email = document.getString(emailField)
+
+                        if (name != null) candidateNames.add(name)
+                        if (job != null) candidatejobs.add(job)
+                        if (company != null) candidateCompanys.add(company)
+                        if (email != null) candidateEmails.add(email)
+                    }
+                }
+                Toast.makeText(this, "Candidates fetched successfully!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Error fetching candidates: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+    private fun sendEmail(recipient: String, subject: String, body: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822" // Specifies email apps
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient)) // Recipient(s)
+            putExtra(Intent.EXTRA_SUBJECT, subject)         // Subject
+            putExtra(Intent.EXTRA_TEXT, body)              // Body text
+        }
+
+        try {
+            // Start email app
+            startActivity(Intent.createChooser(intent, "Choose an Email client"))
+        } catch (e: Exception) {
+            // Show error message if no email app is available
+            Toast.makeText(this, "No email app found on your device!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun searchCandidates(query: String) {
+
+
+        // Parse the query into name, email, job, and company
+        val queryParts = query.split("//")
+        if (queryParts.size != 4) {
+            Toast.makeText(this, "Invalid query format! Use name//email//job//company", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val nameQuery = queryParts[0].trim()
+        val emailQuery = queryParts[1].trim()
+        val jobQuery = queryParts[2].trim()
+        val companyQuery = queryParts[3].trim()
+user_name=nameQuery
+        user_email=emailQuery
+
+        var queryFound = false
+
+        // Iterate through potential fields like name1, name2, ..., name30
+        for (index in 1..30) {
+            val nameField = "name$index"
+            val emailField = "email$index"
+            val jobField = "job$index"
+            val companyField = "company$index"
+
+            db.collection("candidates")
+                .whereEqualTo(nameField, nameQuery)
+                .whereEqualTo(emailField, emailQuery)
+                .whereEqualTo(jobField, jobQuery)
+                .whereEqualTo(companyField, companyQuery)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.isEmpty) {
+                        // Continue searching across other candidate fields
+                        if (!queryFound && index == 30) {
+                            Toast.makeText(this, "No matching candidate found!", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        queryFound = true
+                        val candidate = documents.documents[0]
+                        val jobName = candidate.getString(jobField) ?: ""
+                        val companyName = candidate.getString(companyField) ?: ""
+                        fetchJobInfo(jobName, companyName)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(
+                        this,
+                        "Error searching candidates: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+        }
+    }
+
+
+
+
+    private fun fetchJobInfo(jobName: String, companyName: String) {
+        db.collection("jobs")
+            .whereEqualTo("job", jobName)
+            .whereEqualTo("company", companyName)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Toast.makeText(this, "No matching job found!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val job = documents.documents[0]
+                    val jobInfo = mapOf(
+                        "job" to (job.getString("job") ?: "N/A"),
+                        "company" to (job.getString("company") ?: "N/A"),
+                        "package" to (job.getString("package") ?: "N/A"),
+                        "location_branch" to (job.getString("location_branch") ?: "N/A"),
+                        "description" to (job.getString("description") ?: "N/A"),
+                        "companyemail" to (job.getString("companyemail") ?: "N/A"),
+                        "companyphone" to (job.getString("companyphone") ?: "N/A")
+                    )
+
+                    // Display the results in respective TextViews
+                    displayResults(jobInfo)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Error fetching job info: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
+
+    private fun displayResults(jobInfo: Map<String, String>) {
+        val jobTitleTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_name)
+        val companyTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_cmp)
+        val packageTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_package)
+        val locationTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_location)
+        val descriptionTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_desc)
+        val companyEmailTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_email)
+        val companyPhoneTextView = findViewById<TextView>(R.id.JAPetmrn_jb1_phone)
+
+        // Assign the respective fields from the jobInfo map
+        jobTitleTextView.text = jobInfo["job"] ?: "N/A"
+        companyTextView.text = jobInfo["company"] ?: "N/A"
+        packageTextView.text = jobInfo["package"] ?: "N/A"
+        locationTextView.text = jobInfo["location_branch"] ?: "N/A"
+        descriptionTextView.text = jobInfo["description"] ?: "N/A"
+        companyEmailTextView.text = jobInfo["companyemail"] ?: "N/A"
+        companyPhoneTextView.text = jobInfo["companyphone"] ?: "N/A"
+    }
+
+}
