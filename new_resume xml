@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".new_resume">
+    <ScrollView
+        android:id="@+id/NRsv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/NRmlo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/NRtv1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="Personal Detail:" />
+
+            <EditText
+                android:id="@+id/etmrn_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="Name" />
+
+            <EditText
+                android:id="@+id/etmrn_profession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Professional Title" />
+
+            <EditText
+                android:id="@+id/etmrn_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="phone number"
+                android:inputType="phone" />
+
+            <EditText
+                android:id="@+id/etmrn_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:hint="email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/etmrn_pw1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:hint="portfolio web1"
+                android:inputType="textWebEditText" />
+
+            <EditText
+                android:id="@+id/etmrn_gh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:hint="any web id"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/etmrn_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="100"
+                android:hint="address"
+                android:inputType="textPostalAddress" />
+            <TextView
+                android:id="@+id/NRtv2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="Educational Detail:" />
+            <EditText
+                android:id="@+id/etmrn_d1_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="degree" />
+
+            <EditText
+                android:id="@+id/etmrn_d1_clg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:inputType="text"
+                android:hint="university/college/institution" />
+
+            <EditText
+                android:id="@+id/etmrn_d1_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:hint="year"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/etmrn_d1_cgpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="cgpa/gpa/percentage/grade"
+                android:inputType="numberDecimal" />
+
+            <EditText
+                android:id="@+id/etmrn_d2_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="degree" />
+
+            <EditText
+                android:id="@+id/etmrn_d2_clg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="30"
+                android:inputType="text"
+                android:hint="university/college/institution" />
+
+            <EditText
+                android:id="@+id/etmrn_d2_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:hint="year"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/etmrn_d2_cgpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="cgpa/gpa/percentage/grade"
+                android:inputType="numberDecimal" />
+
+
+            <TextView
+                android:id="@+id/NRtv3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="Past work experience:" />
+
+            <EditText
+                android:id="@+id/etmrn_j1_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="Job Title" />
+
+            <EditText
+                android:id="@+id/etmrn_j1_cmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="company Name" />
+
+            <EditText
+                android:id="@+id/etmrn_j1_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="date of joining"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/etmrn_j1_resp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:hint="responsibility and achievement"/>
+
+            <EditText
+                android:id="@+id/etmrn_j2_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="Job Title" />
+
+            <EditText
+                android:id="@+id/etmrn_j2_cmp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="company Name" />
+
+            <EditText
+                android:id="@+id/etmrn_j2_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="date of joining"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/etmrn_j2_resp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:hint="responsibility and achivement"/>
+
+            <TextView
+                android:id="@+id/NRtv4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="Project detail:" />
+
+            <EditText
+                android:id="@+id/etmrn_p_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:inputType="text"
+                android:hint="Project Name" />
+
+            <EditText
+                android:id="@+id/etmrn_p_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:gravity="start|top"
+                android:hint="description"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/etmrn_p_tech"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:gravity="start|top"
+                android:hint="tech and tool"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/etmrn_p_oc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="20"
+                android:gravity="start|top"
+                android:hint="outcome and learning"
+                android:inputType="textMultiLine" />
+            <TextView
+                android:id="@+id/NRtv5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="skill:" />
+            <EditText
+                android:id="@+id/etmrn_s_tech"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="technical skill"
+                android:inputType="textMultiLine" />
+
+            <EditText
+                android:id="@+id/etmrn_s_soft"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="soft skill"
+                android:inputType="textMultiLine" />
+
+            <TextView
+                android:id="@+id/NRtv6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text=" languages:" />
+
+            <EditText
+                android:id="@+id/etmrn_lang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="languages"
+                android:inputType="textMultiLine" />
+            <TextView
+                android:id="@+id/NRtv7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:textColor="@color/voilet"
+                android:textStyle="bold"
+                android:text="Achievements and hobbies:" />
+            <EditText
+                android:id="@+id/etmrn_award"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Achievements and hobbies"
+                android:inputType="textMultiLine" />
+            <Button
+                android:id="@+id/nrsaveb"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Save"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
