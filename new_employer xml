@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".new_employer">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/HPcv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/HPmlo2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/boxnew"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/EHPcomp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:hint="enter company name"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
+
+            <EditText
+                android:id="@+id/EHPname"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:hint="enter your name"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/EHPyear"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:hint="enter year of inaugration"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+            <EditText
+                android:id="@+id/EHPdesc"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:textSize="20dp"
+                android:hint="enter description of your company" />
+            <EditText
+                android:id="@+id/EHPproducts"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6"
+                android:textSize="20dp"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:hint="describe your products in short" />
+
+
+            <EditText
+                android:id="@+id/EHPphone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:ems="10"
+                android:inputType="phone"
+                android:hint="enter your phone number"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:textColor="@color/voilet" />
+
+            <EditText
+                android:id="@+id/EHPemail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:textSize="15sp"
+                android:inputType="textEmailAddress"
+                android:hint="enter your email id"
+                android:textAlignment="center"
+                android:textColor="@color/voilet" />
+            <EditText
+                android:id="@+id/EHPpassword"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:textSize="20dp"
+                android:inputType="textPassword"
+                android:hint="enter password"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/HPsave"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="save"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/ADlogo"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="add logo"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
