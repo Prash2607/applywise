@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".upc">
+
+    <Button
+        android:id="@+id/buttonbackupc"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.92" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- A LinearLayout is needed inside HorizontalScrollView to hold child views -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="500dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvu1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="INTERVIEW"
+                        android:textSize="25sp"
+                        android:textColor="@color/voilet"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb1_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+                        android:hint="job name"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb1_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+                        android:hint="company"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb1_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+
+                        android:hint="time"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb1_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+
+                        android:hint="date"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb1_round"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+
+                        android:hint="1"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb1_chance"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="80%"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="500dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvu2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="INTERVIEW"
+                        android:textSize="25sp"
+                        android:textColor="@color/voilet"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb2_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="job name"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb2_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="company"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb2_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="time"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb2_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="date"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb2_round"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="1"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb2_chance"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="80%"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="500dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvu3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="INTERVIEW"
+                        android:textSize="25sp"
+                        android:textColor="@color/voilet"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb3_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="job name"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb3_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="company"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb3_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="time"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb3_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="date"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb3_round"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:textSize="20sp"
+
+                        android:hint="1"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb3_chance"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="80%"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="500dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvu4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="INTERVIEW"
+                        android:textSize="25sp"
+                        android:textColor="@color/voilet"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb4_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="job name"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb4_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="company"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb4_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="time"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb4_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="date"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb4_round"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="1"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb4_chance"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="80%"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="380dp"
+                android:layout_height="500dp"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvu5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:text="INTERVIEW"
+                        android:textSize="25sp"
+                        android:textColor="@color/voilet"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb5_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="job name"
+                        android:textSize="20sp"
+
+                        android:layout_weight="1"
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb5_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="company"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb5_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="time"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/etmrn_jb5_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="date"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb5_round"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="1"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                    <TextView
+                        android:id="@+id/etmrn_jb5_chance"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:hint="80%"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
