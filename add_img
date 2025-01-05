@@ -1,0 +1,126 @@
+package com.example.myapplication
+
+import android.app.Activity
+import android.content.ContentValues
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
+import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.OutputStream
+
+class add_img : AppCompatActivity() {
+
+    private lateinit var imageDao: ImageDao
+    private var imageUri: Uri? = null
+private lateinit var imageView: ImageView
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
+                imageBitmap?.let {
+                    imageUri = saveImageToGallery(it) // Save the captured image to gallery and get URI
+                    imageView.setImageBitmap(it) // Display the captured image in ImageView
+                }
+            }
+        }
+
+    private val galleryLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                imageUri = result.data?.data
+                imageUri?.let { uri ->
+                    Glide.with(this).load(uri).into(imageView) // Load the selected image into ImageView
+                }
+            }
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add_img)
+   imageView = findViewById<ImageView>(R.id.AIsi)
+
+        // Initialize Room Database
+        val database = AppDatabase.getDatabase(this)
+        imageDao = database.imageDao()
+val openCameraButton = findViewById<Button>(R.id.AIoc)
+        // Open Camera
+        openCameraButton.setOnClickListener {
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            cameraLauncher.launch(cameraIntent)
+        }
+
+        // Open Gallery
+        val selectGalleryButton = findViewById<Button>(R.id.AIog)
+        selectGalleryButton.setOnClickListener {
+            val galleryIntent = Intent(Intent.ACTION_PICK).apply {
+                type = "image/*"
+            }
+            galleryLauncher.launch(galleryIntent)
+        }
+
+        // Save to Room Database
+        val saveButton = findViewById<Button>(R.id.AIsave)
+        saveButton.setOnClickListener {
+            imageUri?.let { uri ->
+                saveImageToRoom(uri)
+            } ?: Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+
+        // Load images from Room Database
+
+            loadImagesFromRoom()
+
+    }
+
+    private fun saveImageToGallery(bitmap: Bitmap): Uri? {
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Images.Media.DISPLAY_NAME, "captured_image_${System.currentTimeMillis()}.jpg")
+            put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+            put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/MyApp")
+        }
+
+        val uri: Uri? = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        uri?.let {
+            contentResolver.openOutputStream(it)?.use { outputStream: OutputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            }
+        }
+        return uri
+    }
+
+    private fun saveImageToRoom(uri: Uri) {
+        val imagePath = uri.toString() // Convert the URI to a string
+        CoroutineScope(Dispatchers.IO).launch {
+            imageDao.insertImage(ImageEntity(imagePath = imagePath))
+            runOnUiThread {
+                Toast.makeText(this@add_img, "Image saved to RoomDB", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun loadImagesFromRoom() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val images = imageDao.getAllImages()
+            runOnUiThread {
+                if (images.isNotEmpty()) {
+                    val firstImage = images.first()
+                    Glide.with(this@add_img).load(firstImage.imagePath).into(imageView)
+                } else {
+                    Toast.makeText(this@add_img, "No images found", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+}
