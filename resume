@@ -1,0 +1,42 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class resume : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_resume)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        val newResumeButton = findViewById<Button>(R.id.RMcn)
+        val editResumeButton = findViewById<Button>(R.id.RMe)
+        newResumeButton.setOnClickListener {
+            val intent = Intent(this, new_resume::class.java)
+            startActivity(intent)
+            finish()
+        }
+editResumeButton.setOnClickListener {
+    val intent = Intent(this, edit_resume::class.java)
+    startActivity(intent)
+    finish()
+    }
+        val makeResumeOnlineButton = findViewById<Button>(R.id.Make_resume_online)
+        makeResumeOnlineButton.setOnClickListener {
+            val urL = "https://www.resume-now.com"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(urL)
+            startActivity(intent)
+            finish()
+        }
+}}
