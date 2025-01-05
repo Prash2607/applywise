@@ -1,0 +1,81 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class job_portals : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_job_portals)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+
+        }
+        val naukaributton = findViewById<Button>(R.id.wb1)
+        naukaributton.setOnClickListener {
+            val url = "https://www.naukri.com/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+    }
+        val monsterbutton = findViewById<Button>(R.id.wb2)
+        monsterbutton.setOnClickListener {
+            val url = "https://www.monsterindia.com/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+        val angelbutton = findViewById<Button>(R.id.wb3)
+        angelbutton.setOnClickListener {
+            val url = "https://angel.co/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+        val sresultbutton = findViewById<Button>(R.id.wb4)
+        sresultbutton.setOnClickListener {
+            val url = "https://www.sarkariresult.com/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+        val ncsbutton = findViewById<Button>(R.id.wb5)
+        ncsbutton.setOnClickListener {
+            val url = "https://www.nationalcareerservice.gov.in/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
+        val freelancerbutton = findViewById<Button>(R.id.wb6)
+freelancerbutton.setOnClickListener {
+    val url = "https://www.freelancer.in/"
+    val intent = Intent(Intent.ACTION_VIEW)
+    intent.data = Uri.parse(url)
+    startActivity(intent)
+
+}
+        val upworkbutton = findViewById<Button>(R.id.wb7)
+        upworkbutton.setOnClickListener {
+            val url = "https://www.upwork.com/"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+
+
+        }
+        val backbutton = findViewById<Button>(R.id.wb8)
+        backbutton.setOnClickListener {
+            val intent = Intent(this, menu_bar::class.java)
+            startActivity(intent)
+        }
+}
+}
