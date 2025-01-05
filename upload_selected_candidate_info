@@ -1,0 +1,541 @@
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+class upload_selected_candidate_info : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var name1: EditText
+    private lateinit var email1: EditText
+    private lateinit var name2: EditText
+    private lateinit var email2: EditText
+    private lateinit var name3: EditText
+    private lateinit var email3: EditText
+    private lateinit var name4: EditText
+    private lateinit var email4: EditText
+    private lateinit var name5: EditText
+    private lateinit var email5: EditText
+    private lateinit var name6: EditText
+    private lateinit var email6: EditText
+    private lateinit var name7: EditText
+    private lateinit var email7: EditText
+    private lateinit var name8: EditText
+    private lateinit var email8: EditText
+    private lateinit var name9: EditText
+    private lateinit var email9: EditText
+    private lateinit var name10: EditText
+    private lateinit var email10: EditText
+    private lateinit var name11: EditText
+    private lateinit var email11: EditText
+    private lateinit var name12: EditText
+    private lateinit var email12: EditText
+    private lateinit var name13: EditText
+    private lateinit var email13: EditText
+    private lateinit var name14: EditText
+    private lateinit var email14: EditText
+    private lateinit var name15: EditText
+    private lateinit var email15: EditText
+    private lateinit var name16: EditText
+    private lateinit var email16: EditText
+    private lateinit var name17: EditText
+    private lateinit var email17: EditText
+    private lateinit var name18: EditText
+    private lateinit var email18: EditText
+    private lateinit var name19: EditText
+    private lateinit var email19: EditText
+    private lateinit var name20: EditText
+    private lateinit var email20: EditText
+    private lateinit var name21: EditText
+    private lateinit var email21: EditText
+    private lateinit var name22: EditText
+    private lateinit var email22: EditText
+    private lateinit var name23: EditText
+    private lateinit var email23: EditText
+    private lateinit var name24: EditText
+    private lateinit var email24: EditText
+    private lateinit var name25: EditText
+    private lateinit var email25: EditText
+    private lateinit var name26: EditText
+    private lateinit var email26: EditText
+    private lateinit var name27: EditText
+    private lateinit var email27: EditText
+    private lateinit var name28: EditText
+    private lateinit var email28: EditText
+    private lateinit var name29: EditText
+    private lateinit var email29: EditText
+    private lateinit var name30: EditText
+    private lateinit var email30: EditText
+
+    private lateinit var job1:EditText
+    private lateinit var cmp1:EditText
+    private lateinit var job2:EditText
+    private lateinit var cmp2:EditText
+    private lateinit var job3:EditText
+    private lateinit var cmp3:EditText
+    private lateinit var job4:EditText
+    private lateinit var cmp4:EditText
+    private lateinit var job5:EditText
+    private lateinit var cmp5:EditText
+    private lateinit var job6:EditText
+    private lateinit var cmp6:EditText
+    private lateinit var job7:EditText
+    private lateinit var cmp7:EditText
+    private lateinit var job8:EditText
+    private lateinit var cmp8:EditText
+    private lateinit var job9:EditText
+    private lateinit var cmp9:EditText
+    private lateinit var job10:EditText
+    private lateinit var cmp10:EditText
+    private lateinit var job11:EditText
+    private lateinit var cmp11:EditText
+    private lateinit var job12:EditText
+    private lateinit var cmp12:EditText
+    private lateinit var job13:EditText
+    private lateinit var cmp13:EditText
+    private lateinit var job14:EditText
+    private lateinit var cmp14:EditText
+    private lateinit var job15:EditText
+    private lateinit var cmp15:EditText
+    private lateinit var job16:EditText
+    private lateinit var cmp16:EditText
+    private lateinit var job17:EditText
+    private lateinit var cmp17:EditText
+    private lateinit var job18:EditText
+    private lateinit var cmp18:EditText
+    private lateinit var job19:EditText
+    private lateinit var cmp19:EditText
+    private lateinit var job20:EditText
+    private lateinit var cmp20:EditText
+    private lateinit var job21:EditText
+    private lateinit var cmp21:EditText
+    private lateinit var job22:EditText
+    private lateinit var cmp22:EditText
+    private lateinit var job23:EditText
+    private lateinit var cmp23:EditText
+    private lateinit var job24:EditText
+    private lateinit var cmp24:EditText
+    private lateinit var job25:EditText
+    private lateinit var cmp25:EditText
+    private lateinit var job26:EditText
+    private lateinit var cmp26:EditText
+    private lateinit var job27:EditText
+    private lateinit var cmp27:EditText
+    private lateinit var job28:EditText
+    private lateinit var cmp28:EditText
+    private lateinit var job29:EditText
+    private lateinit var cmp29:EditText
+    private lateinit var job30:EditText
+    private lateinit var cmp30:EditText
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_upload_selected_candidate_info)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        name1=findViewById(R.id.UIcandidate_name1)
+        email1=findViewById(R.id.UIcandidate_email1)
+        name2=findViewById(R.id.UIcandidate_name2)
+        email2=findViewById(R.id.UIcandidate_email2)
+        name3=findViewById(R.id.UIcandidate_name3)
+        email3=findViewById(R.id.UIcandidate_email3)
+        name4=findViewById(R.id.UIcandidate_name4)
+        email4=findViewById(R.id.UIcandidate_email4)
+        name5=findViewById(R.id.UIcandidate_name5)
+        email5=findViewById(R.id.UIcandidate_email5)
+        name6=findViewById(R.id.UIcandidate_name6)
+        email6=findViewById(R.id.UIcandidate_email6)
+        name7=findViewById(R.id.UIcandidate_name7)
+        email7=findViewById(R.id.UIcandidate_email7)
+        name8=findViewById(R.id.UIcandidate_name8)
+        email8=findViewById(R.id.UIcandidate_email8)
+        name9=findViewById(R.id.UIcandidate_name9)
+        email9=findViewById(R.id.UIcandidate_email9)
+        name10=findViewById(R.id.UIcandidate_name10)
+        email10=findViewById(R.id.UIcandidate_email10)
+        name11=findViewById(R.id.UIcandidate_name11)
+        email11=findViewById(R.id.UIcandidate_email11)
+        name12=findViewById(R.id.UIcandidate_name12)
+        email12=findViewById(R.id.UIcandidate_email12)
+        name13=findViewById(R.id.UIcandidate_name13)
+        email13=findViewById(R.id.UIcandidate_email13)
+        name14=findViewById(R.id.UIcandidate_name14)
+        email14=findViewById(R.id.UIcandidate_email14)
+name15=findViewById(R.id.UIcandidate_name15)
+        email15=findViewById(R.id.UIcandidate_email15)
+        name16=findViewById(R.id.UIcandidate_name16)
+        email16=findViewById(R.id.UIcandidate_email16)
+        name17=findViewById(R.id.UIcandidate_name17)
+        email17=findViewById(R.id.UIcandidate_email17)
+        name18=findViewById(R.id.UIcandidate_name18)
+        email18=findViewById(R.id.UIcandidate_email18)
+        name19=findViewById(R.id.UIcandidate_name19)
+        email19=findViewById(R.id.UIcandidate_email19)
+        name20=findViewById(R.id.UIcandidate_name20)
+        email20=findViewById(R.id.UIcandidate_email20)
+        name21=findViewById(R.id.UIcandidate_name21)
+        email21=findViewById(R.id.UIcandidate_email21)
+        name22=findViewById(R.id.UIcandidate_name22)
+        email22=findViewById(R.id.UIcandidate_email22)
+        name23=findViewById(R.id.UIcandidate_name23)
+        email23=findViewById(R.id.UIcandidate_email23)
+        name24=findViewById(R.id.UIcandidate_name24)
+        email24=findViewById(R.id.UIcandidate_email24)
+        name25=findViewById(R.id.UIcandidate_name25)
+        email25=findViewById(R.id.UIcandidate_email25)
+        name26=findViewById(R.id.UIcandidate_name26)
+        email26=findViewById(R.id.UIcandidate_email26)
+        name27=findViewById(R.id.UIcandidate_name27)
+        email27=findViewById(R.id.UIcandidate_email27)
+        name28=findViewById(R.id.UIcandidate_name28)
+        email28=findViewById(R.id.UIcandidate_email28)
+        name29=findViewById(R.id.UIcandidate_name29)
+        email29=findViewById(R.id.UIcandidate_email29)
+        name30=findViewById(R.id.UIcandidate_name30)
+        email30=findViewById(R.id.UIcandidate_email30)
+
+        job1=findViewById(R.id.UIcandidate_job_title1)
+        cmp1=findViewById(R.id.UIcandidate_jobcomp1)
+        job2=findViewById(R.id.UIcandidate_job_title2)
+        cmp2=findViewById(R.id.UIcandidate_jobcomp2)
+        job3=findViewById(R.id.UIcandidate_job_title3)
+        cmp3=findViewById(R.id.UIcandidate_jobcomp3)
+        job4=findViewById(R.id.UIcandidate_job_title4)
+        cmp4=findViewById(R.id.UIcandidate_jobcomp4)
+        job5=findViewById(R.id.UIcandidate_job_title5)
+        cmp5=findViewById(R.id.UIcandidate_jobcomp5)
+        job6=findViewById(R.id.UIcandidate_job_title6)
+        cmp6=findViewById(R.id.UIcandidate_jobcomp6)
+        job7=findViewById(R.id.UIcandidate_job_title7)
+        cmp7=findViewById(R.id.UIcandidate_jobcomp7)
+        job8=findViewById(R.id.UIcandidate_job_title8)
+        cmp8=findViewById(R.id.UIcandidate_jobcomp8)
+        job9=findViewById(R.id.UIcandidate_job_title9)
+        cmp9=findViewById(R.id.UIcandidate_jobcomp9)
+        job10=findViewById(R.id.UIcandidate_job_title10)
+        cmp10=findViewById(R.id.UIcandidate_jobcomp10)
+        job11=findViewById(R.id.UIcandidate_job_title11)
+        cmp11=findViewById(R.id.UIcandidate_jobcomp11)
+        job12=findViewById(R.id.UIcandidate_job_title12)
+        cmp12=findViewById(R.id.UIcandidate_jobcomp12)
+        job13=findViewById(R.id.UIcandidate_job_title13)
+        cmp13=findViewById(R.id.UIcandidate_jobcomp13)
+        job14=findViewById(R.id.UIcandidate_job_title14)
+        cmp14=findViewById(R.id.UIcandidate_jobcomp14)
+        job15=findViewById(R.id.UIcandidate_job_title15)
+        cmp15=findViewById(R.id.UIcandidate_jobcomp15)
+        job16=findViewById(R.id.UIcandidate_job_title16)
+        cmp16=findViewById(R.id.UIcandidate_jobcomp16)
+        job17=findViewById(R.id.UIcandidate_job_title17)
+        cmp17=findViewById(R.id.UIcandidate_jobcomp17)
+        job18=findViewById(R.id.UIcandidate_job_title18)
+        cmp18=findViewById(R.id.UIcandidate_jobcomp18)
+        job19=findViewById(R.id.UIcandidate_job_title19)
+        cmp19=findViewById(R.id.UIcandidate_jobcomp19)
+        job20=findViewById(R.id.UIcandidate_job_title20)
+        cmp20=findViewById(R.id.UIcandidate_jobcomp20)
+        job21=findViewById(R.id.UIcandidate_job_title21)
+        cmp21=findViewById(R.id.UIcandidate_jobcomp21)
+        job22=findViewById(R.id.UIcandidate_job_title22)
+        cmp22=findViewById(R.id.UIcandidate_jobcomp22)
+        job23=findViewById(R.id.UIcandidate_job_title23)
+        cmp23=findViewById(R.id.UIcandidate_jobcomp23)
+        job24=findViewById(R.id.UIcandidate_job_title24)
+        cmp24=findViewById(R.id.UIcandidate_jobcomp24)
+        job25=findViewById(R.id.UIcandidate_job_title25)
+        cmp25=findViewById(R.id.UIcandidate_jobcomp25)
+        job26=findViewById(R.id.UIcandidate_job_title26)
+        cmp26=findViewById(R.id.UIcandidate_jobcomp26)
+        job27=findViewById(R.id.UIcandidate_job_title27)
+        cmp27=findViewById(R.id.UIcandidate_jobcomp27)
+        job28=findViewById(R.id.UIcandidate_job_title28)
+        cmp28=findViewById(R.id.UIcandidate_jobcomp28)
+        job29=findViewById(R.id.UIcandidate_job_title29)
+        cmp29=findViewById(R.id.UIcandidate_jobcomp29)
+        job30=findViewById(R.id.UIcandidate_job_title30)
+        cmp30=findViewById(R.id.UIcandidate_jobcomp30)
+
+
+
+
+        val uploadbutton=findViewById<Button>(R.id.UIupload)
+        uploadbutton.setOnClickListener {
+            val name1=name1.text.toString()
+            val email1=email1.text.toString()
+            val name2=name2.text.toString()
+            val email2=email2.text.toString()
+            val name3=name3.text.toString()
+            val email3=email3.text.toString()
+            val name4=name4.text.toString()
+            val email4=email4.text.toString()
+            val name5=name5.text.toString()
+            val email5=email5.text.toString()
+            val name6=name6.text.toString()
+            val email6=email6.text.toString()
+            val name7=name7.text.toString()
+            val email7=email7.text.toString()
+            val name8=name8.text.toString()
+            val email8=email8.text.toString()
+            val name9=name9.text.toString()
+            val email9=email9.text.toString()
+            val name10=name10.text.toString()
+            val email10=email10.text.toString()
+            val name11=name11.text.toString()
+            val email11=email11.text.toString()
+            val name12=name12.text.toString()
+            val email12=email12.text.toString()
+            val name13=name13.text.toString()
+            val email13=email13.text.toString()
+            val name14=name14.text.toString()
+            val email14=email14.text.toString()
+            val name15=name15.text.toString()
+            val email15=email15.text.toString()
+            val name16=name16.text.toString()
+            val email16=email16.text.toString()
+            val name17=name17.text.toString()
+            val email17=email17.text.toString()
+            val name18=name18.text.toString()
+            val email18=email18.text.toString()
+            val name19=name19.text.toString()
+            val email19=email19.text.toString()
+            val name20=name20.text.toString()
+            val email20=email20.text.toString()
+            val name21=name21.text.toString()
+            val email21=email21.text.toString()
+            val name22=name22.text.toString()
+            val email22=email22.text.toString()
+            val name23=name23.text.toString()
+            val email23=email23.text.toString()
+            val name24=name24.text.toString()
+            val email24=email24.text.toString()
+            val name25=name25.text.toString()
+            val email25=email25.text.toString()
+            val name26=name26.text.toString()
+            val email26=email26.text.toString()
+            val name27=name27.text.toString()
+            val email27=email27.text.toString()
+            val name28=name28.text.toString()
+            val email28=email28.text.toString()
+            val name29=name29.text.toString()
+            val email29=email29.text.toString()
+            val name30=name30.text.toString()
+            val email30=email30.text.toString()
+
+            val j1=job1.text.toString()
+            val c1=cmp1.text.toString()
+            val j2=job2.text.toString()
+            val c2=cmp2.text.toString()
+            val j3=job3.text.toString()
+            val c3=cmp3.text.toString()
+            val j4=job4.text.toString()
+            val c4=cmp4.text.toString()
+            val j5=job5.text.toString()
+            val c5=cmp5.text.toString()
+            val j6=job6.text.toString()
+            val c6=cmp6.text.toString()
+            val j7=job7.text.toString()
+            val c7=cmp7.text.toString()
+            val j8=job8.text.toString()
+            val c8=cmp8.text.toString()
+            val j9=job9.text.toString()
+            val c9=cmp9.text.toString()
+            val j10=job10.text.toString()
+            val c10=cmp10.text.toString()
+            val j11=job11.text.toString()
+            val c11=cmp11.text.toString()
+            val j12=job12.text.toString()
+            val c12=cmp12.text.toString()
+            val j13=job13.text.toString()
+            val c13=cmp13.text.toString()
+            val j14=job14.text.toString()
+            val c14=cmp14.text.toString()
+            val j15=job15.text.toString()
+            val c15=cmp15.text.toString()
+            val j16=job16.text.toString()
+            val c16=cmp16.text.toString()
+            val j17=job17.text.toString()
+            val c17=cmp17.text.toString()
+            val j18=job18.text.toString()
+            val c18=cmp18.text.toString()
+            val j19=job19.text.toString()
+            val c19=cmp19.text.toString()
+            val j20=job20.text.toString()
+            val c20=cmp20.text.toString()
+            val j21=job21.text.toString()
+            val c21=cmp21.text.toString()
+            val j22=job22.text.toString()
+            val c22=cmp22.text.toString()
+            val j23=job23.text.toString()
+            val c23=cmp23.text.toString()
+            val j24=job24.text.toString()
+            val c24=cmp24.text.toString()
+            val j25=job25.text.toString()
+            val c25=cmp25.text.toString()
+            val j26=job26.text.toString()
+            val c26=cmp26.text.toString()
+            val j27=job27.text.toString()
+            val c27=cmp27.text.toString()
+            val j28=job28.text.toString()
+            val c28=cmp28.text.toString()
+            val j29=job29.text.toString()
+            val c29=cmp29.text.toString()
+            val j30=job30.text.toString()
+            val c30=cmp30.text.toString()
+
+val cand = hashMapOf(
+    "name1" to name1,
+    "email1" to email1,
+    "name2" to name2,
+    "email2" to email2,
+    "name3" to name3,
+    "email3" to email3,
+    "name4" to name4,
+    "email4" to email4,
+    "name5" to name5,
+    "email5" to email5,
+    "name6" to name6,
+    "email6" to email6,
+    "name7" to name7,
+    "email7" to email7,
+    "name8" to name8,
+    "email8" to email8,
+    "name9" to name9,
+    "email9" to email9,
+    "name10" to name10,
+    "email10" to email10,
+    "name11" to name11,
+    "email11" to email11,
+    "name12" to name12,
+    "email12" to email12,
+    "name13" to name13,
+    "email13" to email13,
+    "name14" to name14,
+    "email14" to email14,
+    "name15" to name15,
+    "email15" to email15,
+    "name16" to name16,
+    "email16" to email16,
+    "name17" to name17,
+    "email17" to email17,
+    "name18" to name18,
+    "email18" to email18,
+    "name19" to name19,
+    "email19" to email19,
+    "name20" to name20,
+    "email20" to email20,
+    "name21" to name21,
+    "email21" to email21,
+    "name22" to name22,
+    "email22" to email22,
+    "name23" to name23,
+    "email23" to email23,
+    "name24" to name24,
+    "email24" to email24,
+    "name25" to name25,
+    "email25" to email25,
+    "name26" to name26,
+    "email26" to email26,
+    "name27" to name27,
+    "email27" to email27,
+    "name28" to name28,
+    "email28" to email28,
+    "name29" to name29,
+    "email29" to email29,
+    "name30" to name30,
+    "email30" to email30,
+
+    "job1" to j1,
+    "cmp1" to c1,
+    "job2" to j2,
+    "cmp2" to c2,
+    "job3" to j3,
+    "cmp3" to c3,
+    "job4" to j4,
+    "cmp4" to c4,
+    "job5" to j5,
+    "cmp5" to c5,
+    "job6" to j6,
+    "cmp6" to c6,
+    "job7" to j7,
+    "cmp7" to c7,
+    "job8" to j8,
+    "cmp8" to c8,
+    "job9" to j9,
+    "cmp9" to c9,
+    "job10" to j10,
+    "cmp10" to c10,
+    "job11" to j11,
+    "cmp11" to c11,
+    "job12" to j12,
+    "cmp12" to c12,
+    "job13" to j13,
+    "cmp13" to c13,
+    "job14" to j14,
+    "cmp14" to c14,
+    "job15" to j15,
+    "cmp15" to c15,
+    "job16" to j16,
+    "cmp16" to c16,
+    "job17" to j17,
+    "cmp17" to c17,
+    "job18" to j18,
+    "cmp18" to c18,
+    "job19" to j19,
+    "cmp19" to c19,
+    "job20" to j20,
+    "cmp20" to c20,
+    "job21" to j21,
+    "cmp21" to c21,
+    "job22" to j22,
+    "cmp22" to c22,
+    "job23" to j23,
+    "cmp23" to c23,
+    "job24" to j24,
+    "cmp24" to c24,
+    "job25" to j25,
+    "cmp25" to c25,
+    "job26" to j26,
+    "cmp26" to c26,
+    "job27" to j27,
+    "cmp27" to c27,
+    "job28" to j28,
+    "cmp28" to c28,
+    "job29" to j29,
+    "cmp29" to c29,
+    "job30" to j30,
+    "cmp30" to c30
+
+)
+          val  db= FirebaseFirestore.getInstance()
+val pm=1
+            val tme=pm.toString()
+            val user_id=auth.currentUser!!.uid + tme
+db.collection("candidates").document(user_id)
+    .set(cand)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "candidate information saved successfully!", Toast.LENGTH_SHORT).show()
+                }
+    .addOnFailureListener{
+        Toast.makeText(this, "Failed to save candidate information", Toast.LENGTH_SHORT).show()
+
+    }
+
+
+
+
+    }
+}}
