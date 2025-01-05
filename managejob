@@ -1,0 +1,297 @@
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+class managejob : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+
+    private lateinit var companyname1: EditText
+    private lateinit var jobname1: EditText
+    private lateinit var interview_date_time1: EditText
+    private lateinit var packagee1: EditText
+    private lateinit var branch_location1: EditText
+    private lateinit var phone1: EditText
+    private lateinit var email1: EditText
+    private lateinit var detailed_info1: EditText
+
+    private lateinit var companyname2: EditText
+    private lateinit var jobname2: EditText
+    private lateinit var interview_date_time2: EditText
+    private lateinit var packagee2: EditText
+    private lateinit var branch_location2: EditText
+    private lateinit var phone2: EditText
+    private lateinit var email2: EditText
+    private lateinit var detailed_info2: EditText
+
+    private lateinit var companyname3: EditText
+    private lateinit var jobname3: EditText
+    private lateinit var interview_date_time3: EditText
+    private lateinit var packagee3: EditText
+    private lateinit var branch_location3: EditText
+    private lateinit var phone3: EditText
+    private lateinit var email3: EditText
+    private lateinit var detailed_info3: EditText
+
+    private lateinit var companyname4: EditText
+    private lateinit var jobname4: EditText
+    private lateinit var interview_date_time4: EditText
+    private lateinit var packagee4: EditText
+    private lateinit var branch_location4: EditText
+    private lateinit var phone4: EditText
+    private lateinit var email4: EditText
+    private lateinit var detailed_info4: EditText
+
+    private lateinit var companyname5: EditText
+    private lateinit var jobname5: EditText
+    private lateinit var interview_date_time5: EditText
+    private lateinit var packagee5: EditText
+    private lateinit var branch_location5: EditText
+    private lateinit var phone5: EditText
+    private lateinit var email5: EditText
+    private lateinit var detailed_info5: EditText
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_managejob)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        companyname1 = findViewById(R.id.MJetmrn_jb1_cmp)
+        jobname1 = findViewById(R.id.MJetmrn_jb1_name)
+        interview_date_time1 = findViewById(R.id.MJetmrn_jb1_time)
+        packagee1 = findViewById(R.id.MJetmrn_jb1_package)
+        branch_location1 = findViewById(R.id.MJetmrn_jb1_date)
+        phone1 = findViewById(R.id.MJetrn_phone1)
+        email1 = findViewById(R.id.MJetmrn_jb1_email)
+        detailed_info1 = findViewById(R.id.MJ1desc)
+
+        companyname2 = findViewById(R.id.MJetmrn_jb2_cmp)
+        jobname2 = findViewById(R.id.MJ_jb2_name)
+        interview_date_time2 = findViewById(R.id.MJetmrn_jb2_time)
+        packagee2 = findViewById(R.id.MJetmrn_jb2_package)
+        branch_location2 = findViewById(R.id.MJetmrn_jb2_date)
+        phone2 = findViewById(R.id.MJetrn_phone2)
+        email2 = findViewById(R.id.MJetmrn_jb2_email)
+        detailed_info2 = findViewById(R.id.MJ2desc)
+
+        companyname3 = findViewById(R.id.MJetmrn_jb3_cmp)
+        jobname3 = findViewById(R.id.MJetmrn_jb3_name)
+        interview_date_time3 = findViewById(R.id.MJetmrn_jb3_time)
+        packagee3 = findViewById(R.id.MJetmrn_jb3_package)
+        branch_location3 = findViewById(R.id.MJetmrn_jb3_date)
+        phone3 = findViewById(R.id.MJetrn_phone3)
+        email3 = findViewById(R.id.MJetmrn_jb3_email)
+        detailed_info3 = findViewById(R.id.MJ3desc)
+
+        companyname4 = findViewById(R.id.MJetmrn_jb4_cmp)
+        jobname4 = findViewById(R.id.MJetmrn_jb4_name)
+        interview_date_time4 = findViewById(R.id.MJetmrn_jb4_time)
+        packagee4 = findViewById(R.id.MJetmrn_jb4_package)
+        branch_location4 = findViewById(R.id.MJetmrn_jb4_date)
+        phone4 = findViewById(R.id.MJetrn_phone4)
+        email4 = findViewById(R.id.MJetmrn_jb4_email)
+        detailed_info4 = findViewById(R.id.MJ4desc)
+
+        companyname5 = findViewById(R.id.MJetmrn_jb5_cmp)
+        jobname5 = findViewById(R.id.MJetmrn_jb5_name)
+        interview_date_time5 = findViewById(R.id.MJetmrn_jb5_time)
+        packagee5 = findViewById(R.id.MJetmrn_jb5_package)
+        branch_location5 = findViewById(R.id.MJetmrn_jb5_date)
+        phone5 = findViewById(R.id.MJetrn_phone5)
+        email5 = findViewById(R.id.MJetmrn_jb5_email)
+        detailed_info5 = findViewById(R.id.MJ5desc)
+        val backbuttons = listOf<Button>(
+            findViewById(R.id.MJback1),
+            findViewById(R.id.MJback2),
+            findViewById(R.id.MJback3),
+            findViewById(R.id.MJback4),
+            findViewById(R.id.MJback5)
+        )
+        val save1 = findViewById<Button>(R.id.MJ1save)
+        save1.setOnClickListener {
+
+            val pm = 1
+            val tm = pm.toString()
+            val user_id1 = auth.currentUser!!.uid + tm
+            updatejob(user_id1)
+        }
+        val save2 = findViewById<Button>(R.id.MJ2save)
+        save2.setOnClickListener {
+
+            val pm = 2
+            val tm = pm.toString()
+            val user_id2 = auth.currentUser!!.uid + tm
+            updatejob(user_id2)
+        }
+        val save3 = findViewById<Button>(R.id.MJ3save)
+        save3.setOnClickListener {
+
+            val pm = 3
+            val tm = pm.toString()
+            val user_id3 = auth.currentUser!!.uid + tm
+            updatejob(user_id3)
+        }
+        val save4 = findViewById<Button>(R.id.MJ4save)
+        save4.setOnClickListener {
+
+            val pm = 4
+            val tm = pm.toString()
+            val user_id4 = auth.currentUser!!.uid + tm
+            updatejob(user_id4)
+        }
+        val save5 = findViewById<Button>(R.id.MJ5save)
+        save5.setOnClickListener {
+
+            val pm = 5
+            val tm = pm.toString()
+            val user_id5 = auth.currentUser!!.uid + tm
+            updatejob(user_id5)
+        }
+        val delete1 = findViewById<Button>(R.id.MJ1delete)
+        delete1.setOnClickListener {
+
+            val pm = 1
+            val tm = pm.toString()
+            val user_id1 = auth.currentUser!!.uid + tm
+            deletejob(user_id1)
+        }
+        val delete2 = findViewById<Button>(R.id.MJ2delete)
+        delete2.setOnClickListener {
+
+            val pm = 2
+            val tm = pm.toString()
+            val user_id2 = auth.currentUser!!.uid + tm
+            deletejob(user_id2)
+        }
+        val delete3 = findViewById<Button>(R.id.MJ3delete)
+        delete3.setOnClickListener {
+
+            val pm = 3
+            val tm = pm.toString()
+            val user_id3 = auth.currentUser!!.uid + tm
+            deletejob(user_id3)
+        }
+        val delete4 = findViewById<Button>(R.id.MJ4delete)
+        delete4.setOnClickListener {
+
+            val pm = 4
+            val tm = pm.toString()
+            val user_id4 = auth.currentUser!!.uid + tm
+            deletejob(user_id4)
+        }
+        val delete5 = findViewById<Button>(R.id.MJ5delete)
+        delete5.setOnClickListener {
+
+            val pm = 5
+            val tm = pm.toString()
+            val user_id5 = auth.currentUser!!.uid + tm
+            deletejob(user_id5)
+        }
+        backbuttons.forEach { button ->
+         button.setOnClickListener {
+             finish()
+
+            }
+
+        }
+    }
+    private fun updatejob(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val companyname = companyname1.text.toString()
+        val jobname = jobname1.text.toString()
+        val interview_date_time = interview_date_time1.text.toString()
+        val packagee = packagee1.text.toString()
+        val branch_location = branch_location1.text.toString()
+        val phone = phone1.text.toString()
+        val email = email1.text.toString()
+        val detailed_info = detailed_info1.text.toString()
+        val job = hashMapOf(
+            "company" to companyname,
+            "job name" to jobname,
+            "time and date" to interview_date_time,
+            "package" to packagee,
+            "location" to branch_location,
+            "phone" to phone,
+            "email" to email,
+            "description" to detailed_info
+        )
+
+        db.collection("jobs").document(userId)
+            .set(job)
+            .addOnSuccessListener {
+                Toast.makeText(this, "job information updated successfully!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Failed to update job information: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
+    private fun deletejob(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val companyname = ""
+        val jobname = ""
+        val interview_date_time = ""
+        val packagee = ""
+        val branch_location = ""
+        val phone = ""
+        val email = ""
+        val detailed_info = ""
+        val job = hashMapOf(
+            "company" to companyname,
+            "job name" to jobname,
+            "time and date" to interview_date_time,
+            "package" to packagee,
+            "location" to branch_location,
+            "phone" to phone,
+            "email" to email,
+            "description" to detailed_info
+        )
+
+        db.collection("jobs").document(userId)
+            .set(job)
+            .addOnSuccessListener {
+                Toast.makeText(this, "job information updated successfully!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this,
+                    "Failed to update job information: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
