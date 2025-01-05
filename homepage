@@ -1,0 +1,147 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class homepage : AppCompatActivity() {
+
+    private lateinit var imageDao: ImageDao
+    private lateinit var nameTextView: TextView
+    private lateinit var statusTextView: TextView
+    private lateinit var ageTextView: TextView
+    private lateinit var emailTextView: TextView
+    private lateinit var phoneTextView: TextView
+    private lateinit var experienceTextView: TextView
+    private lateinit var educationTextView: TextView
+    private lateinit var imageView: ImageView
+    private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_homepage)
+
+        // Apply window insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        // Initialize Firebase Auth and Room Database
+        auth = FirebaseAuth.getInstance()
+        val database = AppDatabase.getDatabase(this)
+        imageDao = database.imageDao()
+
+        // Initialize Views
+        nameTextView = findViewById(R.id.tvHPRname)
+        statusTextView = findViewById(R.id.tvHPRstatus)
+        ageTextView = findViewById(R.id.tvHPRage)
+        emailTextView = findViewById(R.id.HPRemail)
+        phoneTextView = findViewById(R.id.HPRphone)
+        experienceTextView = findViewById(R.id.etmlHPRexp)
+        educationTextView = findViewById(R.id.etmlHPRed)
+        imageView = findViewById(R.id.HPRciv)
+        val menuButton = findViewById<ImageView>(R.id.HPRmenu)
+
+        // Ensure the user is authenticated
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, "User not authenticated!", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        // Fetch data from Firestore
+        fetchUserData(userId)
+
+        // Load image from Room Database
+        loadImageFromRoom()
+
+        // Set up menu button
+        menuButton.setOnClickListener {
+            val intent = Intent(this, menu_bar::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun fetchUserData(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val documentReference = db.collection("users").document(userId)
+
+        documentReference.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val name = document.getString("name") ?: "N/A"
+                    val status = document.getString("status") ?: "N/A"
+                    val age = document.getLong("age")?.toString() ?: "N/A"
+                    val email = document.getString("email") ?: "N/A"
+                    val phone = document.getString("phone") ?: "N/A"
+                    val experience = document.getString("experience") ?: "N/A"
+                    val education = document.getString("education") ?: "N/A"
+
+                    updateUserInfo(name, status, age, email, phone, experience, education)
+                } else {
+                    Log.e("FirestoreDebug", "No user document found for ID: $userId")
+                    navigateToNewUser()
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirestoreError", "Error fetching user data: ${e.message}")
+                Toast.makeText(this, "Failed to load user data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateUserInfo(name: String, status: String, age: String, email: String, phone: String, experience: String, education: String) {
+        nameTextView.text = name
+        statusTextView.text = status
+        ageTextView.text = age
+        emailTextView.text = email
+        phoneTextView.text = phone
+        experienceTextView.text = experience
+        educationTextView.text = education
+    }
+
+    private fun loadImageFromRoom() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val images = imageDao.getAllImages()
+            runOnUiThread {
+                if (images.isNotEmpty()) {
+                    val firstImagePath = images.first().imagePath
+                    loadImage(firstImagePath)
+                } else {
+                    Toast.makeText(this@homepage, "No image data found in Room!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun loadImage(imagePath: String) {
+        Glide.with(this)
+            .load(imagePath)
+            .placeholder(R.drawable.placeholder) // Optional placeholder for better UX
+            .error(R.drawable.error_placeholder) // Optional error placeholder
+            .into(imageView)
+    }
+
+    private fun navigateToNewUser() {
+        val intent = Intent(this, new_user::class.java)
+        startActivity(intent)
+        finish()
+    }
+}
