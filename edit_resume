@@ -1,0 +1,287 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
+
+class edit_resume : AppCompatActivity() {
+
+    // Declare TextViews
+    private lateinit var nameTextView: TextView
+    private lateinit var titleTextView: TextView
+    private lateinit var phoneTextView: TextView
+    private lateinit var emailTextView: TextView
+    private lateinit var pw1TextView: TextView
+    private lateinit var ghTextView: TextView
+    private lateinit var addTextView: TextView
+    private lateinit var d1nameTextView: TextView
+    private lateinit var d1clgTextView: TextView
+    private lateinit var d1yearTextView: TextView
+    private lateinit var d1cgpaTextView: TextView
+    private lateinit var d2nameTextView: TextView
+    private lateinit var d2clgTextView: TextView
+    private lateinit var d2yearTextView: TextView
+    private lateinit var d2cgpaTextView: TextView
+
+    private lateinit var j1nameTextView: TextView
+    private lateinit var j1cmpTextView: TextView
+    private lateinit var j1dateTextView: TextView
+    private lateinit var j1respTextView: TextView
+    private lateinit var j2nameTextView: TextView
+    private lateinit var j2cmpTextView: TextView
+    private lateinit var j2dateTextView: TextView
+    private lateinit var j2respTextView: TextView
+    private lateinit var techskillTextView: TextView
+    private lateinit var softskillTextView: TextView
+    private lateinit var langskillTextView: TextView
+    private lateinit var interestTextView: TextView
+
+    // New variables for project
+    private lateinit var projectNameTextView: TextView
+    private lateinit var projectDescriptionTextView: TextView
+    private lateinit var techAndToolTextView: TextView
+    private lateinit var outcomeAndLearningTextView: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_edit_resume)
+
+        // Handle window insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        // Initialize TextViews
+        initTextViews()
+
+        // Fetch data from Firestore
+        fetchUserData()
+
+        // Submit button functionality
+        val submitButton = findViewById<Button>(R.id.ERsubmit)
+        submitButton.setOnClickListener {
+            // Update user data on Firestore
+            updateUserData()
+        }
+    }
+
+    private fun initTextViews() {
+        nameTextView = findViewById(R.id.Petmrn_name)
+        titleTextView = findViewById(R.id.Petmrn_title)
+        phoneTextView = findViewById(R.id.Petmrn_phone)
+        emailTextView = findViewById(R.id.Petmrn_email)
+        pw1TextView = findViewById(R.id.Petmrn_pw1)
+        ghTextView = findViewById(R.id.Petmrn_gh)
+        addTextView = findViewById(R.id.Petmrn_add)
+        d1nameTextView = findViewById(R.id.Petmrn_d1_name)
+        d1clgTextView = findViewById(R.id.Petmrn_d1_clg)
+        d1yearTextView = findViewById(R.id.Petmrn_d1_year)
+        d1cgpaTextView = findViewById(R.id.Petmrn_d1_cgpa)
+        d2nameTextView = findViewById(R.id.Petmrn_d2_name)
+        d2clgTextView = findViewById(R.id.Petmrn_d2_clg)
+        d2yearTextView = findViewById(R.id.Petmrn_d2_year)
+        d2cgpaTextView = findViewById(R.id.Petmrn_d2_cgpa)
+
+        j1nameTextView = findViewById(R.id.Petmrn_j1_name)
+        j1cmpTextView = findViewById(R.id.Petmrn_j1_cmp)
+        j1dateTextView = findViewById(R.id.Petmrn_j1_date)
+        j1respTextView = findViewById(R.id.Petmrn_j1_resp)
+        j2nameTextView = findViewById(R.id.Petmrn_j2_name)
+        j2cmpTextView = findViewById(R.id.Petmrn_j2_cmp)
+        j2dateTextView = findViewById(R.id.Petmrn_j2_date)
+        j2respTextView = findViewById(R.id.Petmrn_j2_resp)
+
+        techskillTextView = findViewById(R.id.Petmrn_s_tech)
+        softskillTextView = findViewById(R.id.Petmrn_s_soft)
+        langskillTextView = findViewById(R.id.Petmrn_lang)
+        interestTextView = findViewById(R.id.Petmrn_award)
+        projectNameTextView = findViewById(R.id.Petmrn_p_name)
+        projectDescriptionTextView = findViewById(R.id.Petmrn_p_desc)
+        techAndToolTextView = findViewById(R.id.Petmrn_p_tech)
+        outcomeAndLearningTextView = findViewById(R.id.Petmrn_p_oc)
+    }
+
+    private fun fetchUserData() {
+        val db = FirebaseFirestore.getInstance()
+        val documentReference = db.collection("users").document("newresume")
+
+        documentReference.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Fetch and populate fields
+                    val name = document.getString("Name") ?: "Unknown"
+                    val title = document.getString("Professional Title") ?: "Unknown"
+                    val phone = document.getString("phone number") ?: "Unknown"
+                    val email = document.getString("email") ?: "Unknown"
+                    val pw1 = document.getString("portfolio web1") ?: "Unknown"
+                    val gh = document.getString("any web id") ?: "Unknown"
+                    val address = document.getString("address") ?: "Unknown"
+
+                    // Degree 1
+                    val d1Name = document.getString("degree 1") ?: "Unknown"
+                    val d1College = document.getString("university/college/institution 1") ?: "Unknown"
+                    val d1Year = document.getString("year 1") ?: "Unknown"
+                    val d1Cgpa = document.getString("cgpa/gpa/percentage/grade 1") ?: "Unknown"
+
+                    // Degree 2
+                    val d2Name = document.getString("degree 2") ?: "Unknown"
+                    val d2College = document.getString("university/college/institution 2") ?: "Unknown"
+                    val d2Year = document.getString("year 2") ?: "Unknown"
+                    val d2Cgpa = document.getString("cgpa/gpa/percentage/grade 2") ?: "Unknown"
+
+
+
+                    // Job 1
+                    val j1Name = document.getString("Job Title 1") ?: "Unknown"
+                    val j1Company = document.getString("company Name 1") ?: "Unknown"
+                    val j1Date = document.getString("date of joining 1") ?: "Unknown"
+                    val j1Resp = document.getString("responsibility and achievement 1") ?: "Unknown"
+
+                    // Job 2
+                    val j2Name = document.getString("Job Title 2") ?: "Unknown"
+                    val j2Company = document.getString("company Name 2") ?: "Unknown"
+                    val j2Date = document.getString("date of joining 2") ?: "Unknown"
+                    val j2Resp = document.getString("responsibility and achievement 2") ?: "Unknown"
+
+                    // Job 3
+
+
+
+                    // Skills
+                    val techSkill = document.getString("technical skill") ?: "Unknown"
+                    val softSkill = document.getString("soft skill") ?: "Unknown"
+                    val langSkill = document.getString("languages") ?: "Unknown"
+                    val achievementsAndHobbies = document.getString("Achievements and hobbies") ?: "Unknown"
+
+                    // Project Data
+                    val projectName = document.getString("Project Name") ?: "Unknown"
+                    val projectDescription = document.getString("description") ?: "Unknown"
+                    val techAndTool = document.getString("tech and tool") ?: "Unknown"
+                    val outcomeAndLearning = document.getString("outcome and learning") ?: "Unknown"
+
+
+                    // Update UI with fetched data
+                    nameTextView.text = name
+                    titleTextView.text = title
+                    phoneTextView.text = phone
+                    emailTextView.text = email
+                    pw1TextView.text = pw1
+                    ghTextView.text = gh
+                    addTextView.text = address
+
+                    d1nameTextView.text = d1Name
+                    d1clgTextView.text = d1College
+                    d1yearTextView.text = d1Year
+                    d1cgpaTextView.text = d1Cgpa
+
+                    d2nameTextView.text = d2Name
+                    d2clgTextView.text = d2College
+                    d2yearTextView.text = d2Year
+                    d2cgpaTextView.text = d2Cgpa
+
+
+
+                    j1nameTextView.text = j1Name
+                    j1cmpTextView.text = j1Company
+                    j1dateTextView.text = j1Date
+                    j1respTextView.text = j1Resp
+
+                    j2nameTextView.text = j2Name
+                    j2cmpTextView.text = j2Company
+                    j2dateTextView.text = j2Date
+                    j2respTextView.text = j2Resp
+
+
+                    // Update project fields
+                    projectNameTextView.text = projectName
+                    projectDescriptionTextView.text = projectDescription
+                    techAndToolTextView.text = techAndTool
+                    outcomeAndLearningTextView.text = outcomeAndLearning
+
+                    // Update skills and interests
+                    techskillTextView.text = techSkill
+                    softskillTextView.text = softSkill
+                    langskillTextView.text = langSkill
+                    interestTextView.text = achievementsAndHobbies
+
+                } else {
+                    Toast.makeText(this, "No user data found!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to load user data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateUserData() {
+        val db = FirebaseFirestore.getInstance()
+        val documentReference = db.collection("users").document("newresume")
+
+        val updatedData = mapOf(
+            "Name" to nameTextView.text.toString(),
+            "Professional Title" to titleTextView.text.toString(),
+            "Name" to nameTextView.text.toString(),
+            "Professional Title" to titleTextView.text.toString(),
+            "phone number" to phoneTextView.text.toString(),
+            "email" to emailTextView.text.toString(),
+            "portfolio web1" to pw1TextView.text.toString(),
+            "any web id" to ghTextView.text.toString(),
+            "address" to addTextView.text.toString(),
+
+            // Degree 1
+            "degree 1" to d1nameTextView.text.toString(),
+            "university/college/institution 1" to d1clgTextView.text.toString(),
+            "year 1" to d1yearTextView.text.toString(),
+            "cgpa/gpa/percentage/grade 1" to d1cgpaTextView.text.toString(),
+
+            // Degree 2
+            "degree 2" to d2nameTextView.text.toString(),
+            "university/college/institution 2" to d2clgTextView.text.toString(),
+            "year 2" to d2yearTextView.text.toString(),
+            "cgpa/gpa/percentage/grade 2" to d2cgpaTextView.text.toString(),
+
+            // Degree 3
+
+            // Job 1
+            "Job Title 1" to j1nameTextView.text.toString(),
+            "company Name 1" to j1cmpTextView.text.toString(),
+            "date of joining 1" to j1dateTextView.text.toString(),
+            "responsibility and achievement 1" to j1respTextView.text.toString(),
+
+            // Job 2
+            "Job Title 2" to j2nameTextView.text.toString(),
+            "company Name 2" to j2cmpTextView.text.toString(),
+            "date of joining 2" to j2dateTextView.text.toString(),
+            "responsibility and achievement 2" to j2respTextView.text.toString(),
+
+
+
+            // Skills and Interests
+            "technical skill" to techskillTextView.text.toString(),
+            "soft skill" to softskillTextView.text.toString(),
+            "languages" to langskillTextView.text.toString(),
+            "Achievements and hobbies" to interestTextView.text.toString()
+        )
+
+        documentReference.set(updatedData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "User data updated successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to update user data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        val abc = Intent(this, menu_bar::class.java)
+        startActivity(abc)
+        finish()
+    }
+}
