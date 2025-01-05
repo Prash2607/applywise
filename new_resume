@@ -1,0 +1,135 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
+
+
+class new_resume : AppCompatActivity() {
+private lateinit var auth: FirebaseAuth
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_new_resume)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        val nrname = findViewById<EditText>(R.id.etmrn_name).text.toString()
+        val nrprof = findViewById<EditText>(R.id.etmrn_profession).text.toString()
+        val nrphone = findViewById<EditText>(R.id.etmrn_phone).text.toString()
+        val nremail = findViewById<EditText>(R.id.etmrn_email).text.toString()
+        val nrweb1 = findViewById<EditText>(R.id.etmrn_pw1).text.toString()
+        val nrgh = findViewById<EditText>(R.id.etmrn_gh).text.toString()
+        val nradd = findViewById<EditText>(R.id.etmrn_add).text.toString()
+
+        val nrd1name = findViewById<EditText>(R.id.etmrn_d1_name).text.toString()
+        val nrd1clg = findViewById<EditText>(R.id.etmrn_d1_clg).text.toString()
+        val nrd1year = findViewById<EditText>(R.id.etmrn_d1_year).text.toString()
+        val nrd1cgpa = findViewById<EditText>(R.id.etmrn_d1_cgpa).text.toString()
+
+        val nrd2name = findViewById<EditText>(R.id.etmrn_d2_name).text.toString()
+        val nrd2clg = findViewById<EditText>(R.id.etmrn_d2_clg).text.toString()
+        val nrd2year = findViewById<EditText>(R.id.etmrn_d2_year).text.toString()
+        val nrd2cgpa = findViewById<EditText>(R.id.etmrn_d2_cgpa).text.toString()
+
+        val nrj1name = findViewById<EditText>(R.id.etmrn_j1_name).text.toString()
+        val nrj1cmp = findViewById<EditText>(R.id.etmrn_j1_cmp).text.toString()
+        val nrj1date = findViewById<EditText>(R.id.etmrn_j1_date).text.toString()
+        val nrj1resp = findViewById<EditText>(R.id.etmrn_j1_resp).text.toString()
+
+        val nrj2name = findViewById<EditText>(R.id.etmrn_j2_name).text.toString()
+        val nrj2cmp = findViewById<EditText>(R.id.etmrn_j2_cmp).text.toString()
+        val nrj2date = findViewById<EditText>(R.id.etmrn_j2_date).text.toString()
+        val nrj2resp = findViewById<EditText>(R.id.etmrn_j2_resp).text.toString()
+
+        val nrpname = findViewById<EditText>(R.id.etmrn_p_name).text.toString()
+        val nrpdesc = findViewById<EditText>(R.id.etmrn_p_desc).text.toString()
+        val nrtech = findViewById<EditText>(R.id.etmrn_p_tech).text.toString()
+        val nroutcome = findViewById<EditText>(R.id.etmrn_p_oc).text.toString()
+
+        val nrstech = findViewById<EditText>(R.id.etmrn_s_tech).text.toString()
+        val nrssoft = findViewById<EditText>(R.id.etmrn_s_soft).text.toString()
+        val nrlang = findViewById<EditText>(R.id.etmrn_lang).text.toString()
+        val nrhobby = findViewById<EditText>(R.id.etmrn_award).text.toString()
+        val nrsavet = findViewById<Button>(R.id.nrsaveb)
+        nrsavet.setOnClickListener {
+            if (nrname.isEmpty() || nradd.isEmpty() || nremail.isEmpty() || nrphone.isEmpty() || nrprof.isEmpty() || nrd1cgpa.isEmpty() || nrd1clg.isEmpty()|| nrd1name.isEmpty()||nrd1year.isEmpty()||nrstech.isEmpty()||nrssoft.isEmpty()||nrlang.isEmpty()|| nrhobby.isEmpty()) {
+                Toast.makeText(this, "Please fill in all required fields!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Create a Firestore instance
+            val db = FirebaseFirestore.getInstance()
+
+            // Create a HashMap for the user data
+            val usermap = hashMapOf(
+
+                "Name" to nrname,
+                "Professional Title" to nrprof,
+                "phone number" to nrphone,
+                "email id" to nremail,
+                "portfolio web1" to nrweb1,
+                "any web id" to nrgh,
+                "address" to nradd,
+
+                "degree 1" to nrd1name,
+                "inst 1" to nrd1clg,
+                "year 1" to nrd1year,
+                "cgpa 1" to nrd1cgpa,
+
+                "degree 2" to nrd2name,
+                "inst 2" to nrd2clg,
+                "year 2" to nrd2year,
+                "cgpa 2" to nrd2cgpa,
+
+
+                "Job Title 1" to nrj1name,
+                "company Name 1" to nrj1cmp,
+                "date of joining 1" to nrj1date,
+                "responsibility and achievement 1" to nrj1resp,
+
+                "Job Title 2" to nrj2name,
+                "company Name 2" to nrj2cmp,
+                "date of joining 2" to nrj2date,
+                "responsibility and achievement 2" to nrj2resp,
+
+
+
+                "Project Name" to nrpname,
+                "description" to nrpdesc,
+                "tech and tool" to nrtech,
+                "outcome and learning" to nroutcome,
+
+                "technical skill" to nrstech,
+                "soft skill" to nrssoft,
+                "languages" to nrlang,
+                "Achievements and hobbies" to nrhobby
+            )
+val user_id = auth.currentUser!!.uid
+            // Save the data to Firestore under `users -> basicinfo`
+            db.collection("users").document(user_id)
+                .set(usermap)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "User information saved successfully!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to save user information: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            val abc = Intent(this, menu_bar::class.java)
+            startActivity(abc)
+            finish()
+
+        }
+    }
+}
