@@ -1,0 +1,100 @@
+package com.example.myapplication
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+class creat_new_job_emp : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var companyname: EditText
+    private lateinit var jobname: EditText
+    private lateinit var interview_date_time: EditText
+    private lateinit var packagee: EditText
+    private lateinit var round: EditText
+    private lateinit var branch_location: EditText
+    private lateinit var phone: EditText
+    private lateinit var email: EditText
+    private lateinit var detailed_info: EditText
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_creat_new_job_emp)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        companyname=findViewById(R.id.JEHPcomp)
+        jobname=findViewById(R.id.JEHPjobname)
+        interview_date_time=findViewById(R.id.JEHPinterview_date_time)
+        packagee=findViewById(R.id.JEHPpackage)
+        round=findViewById(R.id.JEHPround)
+branch_location=findViewById(R.id.JEHPbranch_location)
+        phone=findViewById(R.id.JEHPphone)
+        email=findViewById(R.id.JEHPemail)
+        detailed_info=findViewById(R.id.JEHPdetailed_info)
+val uploadbutton=findViewById<Button>(R.id.JEHPupload)
+
+        uploadbutton.setOnClickListener {
+            // Retrieve user input
+
+            val cmp_name = companyname.text.toString()
+        val job_name = jobname.text.toString()
+            val date_time = interview_date_time.text.toString()
+            val pkg = packagee.text.toString()
+            val rnds = round.text.toString()
+            val branch_loc = branch_location.text.toString()
+            val userphone = phone.text.toString()
+            val useremail = email.text.toString()
+            val detailed_inf_o = detailed_info.text.toString()
+            // Validate inputs
+            if (cmp_name.isEmpty() || userphone.isEmpty() || useremail.isEmpty() || job_name.isEmpty()||pkg.isEmpty()||rnds.isEmpty()||branch_loc.isEmpty()||date_time.isEmpty()) {
+                Toast.makeText(this, "Please fill in all required fields!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Create a Firestore instance
+            val db = FirebaseFirestore.getInstance()
+
+            // Create a HashMap for the user data
+            val user = hashMapOf(
+                "company name" to cmp_name,
+                "job name" to job_name,
+                "interview date time" to date_time,
+                "package" to pkg,
+                "round" to rnds,
+                "branch location" to branch_loc,
+                "phone" to userphone,
+                "email" to useremail,
+                "detailed info" to detailed_inf_o
+
+
+
+            )
+            val user_id = auth.currentUser!!.uid
+            var abc=1
+            var time=abc.toString()
+            val pt = user_id+time
+            // Save the data to Firestore under `users -> basicinfo`
+            db.collection("jobs").document(pt)
+                .set(user)
+                .addOnSuccessListener {
+                    abc++
+                    Toast.makeText(this, "job information saved successfully!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to save job information: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            finish()
+        }
+
+    }
+}
