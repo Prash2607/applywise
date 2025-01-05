@@ -1,0 +1,58 @@
+package com.example.myapplication
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+
+@Dao
+interface ImageDao {
+    @Insert
+    suspend fun insertImage(image: ImageEntity) // Use the ImageEntity from the package
+
+    @Query("SELECT * FROM images")
+    suspend fun getAllImages(): List<ImageEntity>
+}
+
+
+
+package com.example.myapplication
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+@Database(entities = [ImageEntity::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract fun imageDao(): ImageDao // Expose the DAO
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "image_database"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}
+
+
+
+package com.example.myapplication
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "images") // Specifies the table name
+data class ImageEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0, // Primary Key, auto-incremented
+    val imagePath: String // Column to store the image path as a string
+)
