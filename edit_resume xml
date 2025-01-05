@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".edit_resume">
+    <HorizontalScrollView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- LinearLayout to hold CardView elements horizontally -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- CardView 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="390dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Personal Details:"
+                        android:textColor="@color/voilet"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Professional Title"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Phone Number"
+                        android:inputType="phone"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:enabled="true"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- CardView 2 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="390dp"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <EditText
+                        android:id="@+id/Petmrn_pw1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Portfolio Web 1"
+                        android:inputType="textWebEditText"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_gh"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="Any Web ID"
+                        android:inputType="textEmailAddress"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:hint="Address"
+                        android:inputType="textPostalAddress"
+                        android:enabled="true"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Educational Detail:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_d1_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="degree"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d1_clg"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="30"
+                        android:hint="university/college/institution"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d1_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="4"
+                        android:hint="year"
+                        android:inputType="number"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d1_cgpa"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="cgpa/gpa/percentage/grade"
+                        android:inputType="numberDecimal"
+                        android:enabled="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView32"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv22"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Educational Detail:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_d2_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="degree"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d2_clg"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="30"
+                        android:hint="university/college/institution"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d2_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="4"
+                        android:hint="year"
+                        android:inputType="number"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_d2_cgpa"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="cgpa/gpa/percentage/grade"
+                        android:inputType="numberDecimal"
+                        android:enabled="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView41"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv31"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Past work experience:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_j1_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="Job Title"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j1_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="company Name"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j1_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="date of joining"
+                        android:inputType="date"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j1_resp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:ems="15"
+                        android:gravity="start|top"
+                        android:hint="responsibility and achivement"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView42"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv32"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Past work experience:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_j2_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="Job Title"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j2_cmp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="company Name"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j2_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="date of joining"
+                        android:inputType="date"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_j2_resp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:ems="15"
+                        android:gravity="start|top"
+                        android:hint="responsibility and achivement"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView5"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Project detail:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_p_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ems="20"
+                        android:hint="Project Name"
+                        android:inputType="text"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_p_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:ems="20"
+                        android:gravity="start|top"
+                        android:hint="description"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_p_tech"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:ems="20"
+                        android:gravity="start|top"
+                        android:hint="tech and tool"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_p_oc"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:ems="20"
+                        android:gravity="start|top"
+                        android:hint="outcome and learning"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="skill:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_s_tech"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="technical skill"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                    <EditText
+                        android:id="@+id/Petmrn_s_soft"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="soft skill"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+
+                    <TextView
+                        android:id="@+id/tv6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text=" languages:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_lang"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="languages"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView7"
+                android:layout_width="390dp"
+                android:layout_height="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tv7"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:text="Achievements and hobbies:"
+                        android:textColor="@color/voilet"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/Petmrn_award"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="8"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="Achievements and hobbies"
+                        android:inputType="textMultiLine"
+                        android:enabled="true"/>
+                    <Button
+                        android:id="@+id/ERsubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2"
+                        android:text="submit"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
