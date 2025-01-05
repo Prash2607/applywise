@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".job_portals">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51">
+
+        <Button
+            android:id="@+id/wb1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="naukari.com" />
+
+        <Button
+            android:id="@+id/wb2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Monster India" />
+
+        <Button
+            android:id="@+id/wb3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AngelList" />
+
+        <Button
+            android:id="@+id/wb4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sarkari Result" />
+
+        <Button
+            android:id="@+id/wb5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="National Career Service (NCS)" />
+
+        <Button
+            android:id="@+id/wb6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Freelancer.in" />
+
+        <Button
+            android:id="@+id/wb7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upwork" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/wb8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.627" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
