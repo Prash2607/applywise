@@ -1,0 +1,141 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var auth:FirebaseAuth // FirebaseAuth instance
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+
+        // Adjust system bar insets
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
+
+        // Setup UI elements
+        val emailField = findViewById<EditText>(R.id.APemail)
+        val passwordField = findViewById<EditText>(R.id.APpassword)
+        val loginButton = findViewById<TextView>(R.id.APbsub)
+        val registerButton = findViewById<TextView>(R.id.APnewuser)
+        val forgotpassword=findViewById<TextView>(R.id.APbfrgt)
+        val employerbutton=findViewById<TextView>(R.id.APemployer)
+
+        // Login button functionality
+        loginButton.setOnClickListener {
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+            loginUser(email, password)
+        }
+
+        // Register button functionality
+        registerButton.setOnClickListener {
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+            registerUser(email, password)
+        }
+        forgotpassword.setOnClickListener {
+            sendEmail(
+                "prash26072006@gmail.com",
+                "Forget Password of job seeker app",
+                """
+                Dear jobseeker's Team,
+
+                I had forgot my password.Please send link throgh email so I can reset my password.
+
+                Best regards,
+                [your name]
+                [your email]
+                [Your Contact Information]
+            """.trimIndent()
+            )
+        }
+        employerbutton.setOnClickListener {
+            val email = emailField.text.toString()
+            val password = passwordField.text.toString()
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Login successful
+
+
+                        val intent=Intent(this,employerhp::class.java)
+                        startActivity(intent)
+                        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        // Login failed
+                        Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+        }
+
+    }
+    private fun sendEmail(recipient: String, subject: String, body: String) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "message/rfc822" // Specifies email apps
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient)) // Recipient(s)
+            putExtra(Intent.EXTRA_SUBJECT, subject)         // Subject
+            putExtra(Intent.EXTRA_TEXT, body)              // Body text
+        }
+
+        try {
+            // Start email app
+            startActivity(Intent.createChooser(intent, "Choose an Email client"))
+        } catch (e: Exception) {
+            // Show error message if no email app is available
+            Toast.makeText(this, "No email app found on your device!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    // Function to log in a user
+    private fun loginUser(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Login successful
+
+
+                    val intent=Intent(this,homepage::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Login failed
+                    Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    // Function to register a new user
+    private fun registerUser(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+
+                    // Registration successful
+                    Toast.makeText(this, "User registered successfully!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Registration failed
+                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+}
