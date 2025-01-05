@@ -1,0 +1,198 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.firestore.FirebaseFirestore
+
+class job_search_apply : AppCompatActivity() {
+
+    private lateinit var job_name1: TextView
+    private lateinit var job_cmp1: TextView
+    private lateinit var job_package1: TextView
+    private lateinit var job_location1: TextView
+    private lateinit var job_branch1: TextView
+    private lateinit var job_desc1: TextView
+    private lateinit var job_email1: TextView
+    private lateinit var job_phone1: TextView
+    private lateinit var queryField: EditText
+
+    private val db = FirebaseFirestore.getInstance()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_job_search_apply)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        // Initialize views
+        job_name1 = findViewById(R.id.JSAetmrn_jb1_name)
+        job_cmp1 = findViewById(R.id.JSAetmrn_jb1_cmp)
+        job_package1 = findViewById(R.id.JSAetmrn_jb1_package)
+        job_location1 = findViewById(R.id.JSAetmrn_jb1_location)
+        job_branch1 = findViewById(R.id.JSAetmrn_jb1_chance)
+        job_desc1 = findViewById(R.id.JSAetmrn_jb1_desc)
+        job_email1 = findViewById(R.id.JSAetmrn_jb1_email)
+        job_phone1 = findViewById(R.id.JSAetmrn_jb1_phone)
+        queryField = findViewById(R.id.search_jaa)
+        val fetchButton = findViewById<Button>(R.id.Fetch_button_dataa)
+        val applyButton1 = findViewById<Button>(R.id.JSAtvu1)
+        val backButton1 = findViewById<Button>(R.id.JSAbja1)
+
+        // Set listeners
+        fetchButton.setOnClickListener {
+            val query = queryField.text.toString()
+            if (query.isNotEmpty()) {
+                searchJob(query)
+            } else {
+                Toast.makeText(this, "Please enter a valid query!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        applyButton1.setOnClickListener {
+            applyForJob()
+        }
+
+        backButton1.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun searchJob(query: String) {
+        val queryParts = query.split("//")
+        if (queryParts.size < 2) {
+            Toast.makeText(this, "Invalid query format! Use: job//company", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val jobQuery = queryParts[0].trim()
+        val companyQuery = queryParts[1].trim()
+
+        db.collection("jobs")
+            .whereEqualTo("job", jobQuery)
+            .whereEqualTo("company", companyQuery)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Toast.makeText(this, "No matching job found!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val job = documents.documents[0]
+                    val jobName = job.getString("job") ?: "N/A"
+                    val companyName = job.getString("company") ?: "N/A"
+                    fetchJobInfo(jobName, companyName)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error searching job: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun fetchJobInfo(jobName: String, companyName: String) {
+        db.collection("jobs")
+            .whereEqualTo("job", jobName)
+            .whereEqualTo("company", companyName)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    Toast.makeText(this, "No matching job details found!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val job = documents.documents[0]
+                    val jobInfo = mapOf(
+                        "job" to (job.getString("job") ?: "N/A"),
+                        "company" to (job.getString("company") ?: "N/A"),
+                        "package" to (job.getString("package") ?: "N/A"),
+                        "location_branch" to (job.getString("location_branch") ?: "N/A"),
+                        "description" to (job.getString("description") ?: "N/A"),
+                        "companyemail" to (job.getString("companyemail") ?: "N/A"),
+                        "companyphone" to (job.getString("companyphone") ?: "N/A")
+                    )
+                    displayResults(jobInfo)
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error fetching job info: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun displayResults(jobInfo: Map<String, String>) {
+        job_name1.text = jobInfo["job"] ?: "N/A"
+        job_cmp1.text = jobInfo["company"] ?: "N/A"
+        job_package1.text = jobInfo["package"] ?: "N/A"
+        job_location1.text = jobInfo["location_branch"] ?: "N/A"
+        job_desc1.text = jobInfo["description"] ?: "N/A"
+        job_email1.text = jobInfo["companyemail"] ?: "N/A"
+        job_phone1.text = jobInfo["companyphone"] ?: "N/A"
+    }
+
+    private fun applyForJob() {
+        val companyEmail = job_email1.text.toString()
+        val jobTitle = job_name1.text.toString()
+        val companyName = job_cmp1.text.toString()
+        val jobPackage = job_package1.text.toString()
+        val jobLocation = job_location1.text.toString()
+        val jobBranch = job_branch1.text.toString()
+        val jobDesc = job_desc1.text.toString()
+        val jobPhone = job_phone1.text.toString()
+        val userName = "Your Name" // Replace with actual user name
+        val userEmail = "Your Email" // Replace with actual user email
+
+        if (companyEmail.isNotEmpty()) {
+            sendEmail(
+                companyEmail,
+                "Application for the $jobTitle Position at $companyName",
+                """
+                Dear $companyName Team,
+
+                I am interested in the $jobTitle position at $companyName.
+                Please find my application details.
+
+                Regards,
+                $userName
+                $userEmail
+                """
+            )
+
+            val jobData = hashMapOf(
+                "jobTitle" to jobTitle,
+                "companyName" to companyName,
+                "package" to jobPackage,
+                "location" to jobLocation,
+                "branch" to jobBranch,
+                "description" to jobDesc,
+                "email" to companyEmail,
+                "phone" to jobPhone,
+                "appliedBy" to hashMapOf(
+                    "name" to userName,
+                    "email" to userEmail
+                ),
+                "appliedAt" to com.google.firebase.Timestamp.now()
+            )
+
+            db.collection("myjob")
+                .add(jobData)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Job application saved!", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to save application: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Company email is missing!", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun sendEmail(recipient: String, subject: String, body: String) {
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, body)
+        }
+        startActivity(Intent.createChooser(emailIntent, "Send Email"))
+    }
+}
