@@ -1,0 +1,145 @@
+package com.example.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+class employerhp : AppCompatActivity() {
+    private lateinit var company: TextView
+    private lateinit var name: TextView
+    private lateinit var year: TextView
+    private lateinit var desc: TextView
+    private lateinit var products: TextView
+    private lateinit var phone: TextView
+    private lateinit var email: TextView
+   private lateinit var logoimage:ImageView
+   private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_employerhp)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        company = findViewById(R.id.EHPRcomp)
+        name = findViewById(R.id.EHPRname)
+        year = findViewById(R.id.EHPRyear)
+        desc = findViewById(R.id.EHPRdesc)
+        products = findViewById(R.id.EHPRproduct)
+        phone = findViewById(R.id.EHPRphone)
+        email = findViewById(R.id.EHPRemail)
+        logoimage=findViewById(R.id.HPRciv)
+
+        auth= FirebaseAuth.getInstance()
+
+        val creatjobbutton = findViewById<TextView>(R.id.MBcreatjob)
+        val managejobbutton = findViewById<TextView>(R.id.MBmanagejob)
+        val menubutton = findViewById<ImageButton>(R.id.ABHPRmenu)
+        fetchUserData()
+        fetchImageDetails()
+        menubutton.setOnClickListener {
+            creatjobbutton.visibility = View.VISIBLE
+            managejobbutton.visibility = View.VISIBLE
+        }
+        creatjobbutton.setOnClickListener {
+            val intent = Intent(this, creat_new_job_emp::class.java)
+            startActivity(intent)
+            creatjobbutton.visibility = View.GONE
+            managejobbutton.visibility = View.GONE
+
+            finish()
+        }
+        managejobbutton.setOnClickListener {
+
+
+            val intent = Intent(this, managejob::class.java)
+            startActivity(intent)
+            creatjobbutton.visibility = View.GONE
+            managejobbutton.visibility = View.GONE
+
+            finish()
+
+        }
+
+    }
+
+    private fun fetchUserData() {
+        val user_id = auth.currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        val documentReference = db.collection("employer").document(user_id)
+
+        documentReference.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // Extract data
+                    val aname = document.getString("name") ?: "Unknown"
+                    val acompany = document.getString("company") ?: "Unknown"
+                    val ayear = document.getLong("year")?.toString() ?: "Unknown"
+                    val aemail = document.getString("email") ?: "Unknown"
+                    val aphone = document.getString("phone") ?: "Unknown"
+                    val adescription = document.getString("description") ?: "Unknown"
+                    val aproduct = document.getString("product") ?: "Unknown"
+
+                    // Update the UI
+                    updateUserInfo(aname,acompany, ayear, aemail, aphone, adescription, aproduct)
+                } else {
+                    val intent =Intent(this,new_user::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this, "No user data found!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to load user data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun updateUserInfo(aname: String, acompany: String, ayear: String, aemail: String, aphone: String, adescription: String, aproduct: String) {
+       company.text=acompany
+        name.text = aname
+        year.text = ayear
+        desc.text = adescription
+        products.text = aproduct
+        phone.text = aphone
+        email.text = aemail
+
+    }
+    private fun fetchImageDetails() {
+        val user_id = auth.currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        val documentReference = db.collection("images").document(user_id)
+
+        documentReference.get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val url = document.getString("imageurls") ?: "https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.cntraveler.com%2Fphotos%2F5ad79fc6fa45355065f2047c%2Fmaster%2Fw_320%252Cc_limit%2FMoraine-Lake%252C-Banff-National-Park-GettyImages-517747003.jpg&tbnid=PJu5COqHa_AF5M&vet=1&imgrefurl=https%3A%2F%2Fwww.cntraveler.com%2Fgallery%2Fbeautiful-pictures-of-nature&docid=3OG21gR_aN0HlM&w=320&h=240&itg=1&hl=en-IN&source=sh%2Fx%2Fim%2Fm5%2F4&kgs=a11ae47c4e8a59be "
+                    loadImage(url)
+                } else {
+                    Toast.makeText(this, "No image data found!", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to load image data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun loadImage(url: String) {
+        Glide.with(this)
+            .load(url)
+            .placeholder(R.drawable.placeholder) // Optional placeholder
+            .into(logoimage)
+    }
+}
